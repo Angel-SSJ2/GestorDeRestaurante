@@ -3,6 +3,7 @@
 import mongoose from 'mongoose';
 
 const inventorySchema = new mongoose.Schema({
+<<<<<<< Updated upstream
     ingredientName: {
         type: String,
         required: [true, 'El nombre del ingrediente es obligatorio'],
@@ -39,3 +40,39 @@ const inventorySchema = new mongoose.Schema({
 inventorySchema.index({ restaurant: 1, ingredientName: 1 });
 
 export default mongoose.model('Inventory', inventorySchema);
+=======
+  productName: {
+    type: String,
+    required: true,
+    trim: true,
+    maxLength: [100, 'El nombre no puede tener mas de 100 caracteres'],
+  },
+  quantity: {
+    type: Number,
+    required: [true, 'La cantidad es requerida'],
+    min: [0, 'La cantidad debe ser mayor o igual a 0'],
+  },
+  unit: {
+    type: String,
+    required: true,
+    enum: {
+      values: ['UNIDAD', 'KG', 'LITRO'],
+      message: 'Unidad no valida',
+    },
+  },
+  photo: {
+    type: String,
+    default: 'inventory/default_item',
+  },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
+});
+
+inventorySchema.index({ isActive: 1 });
+inventorySchema.index({ productName: 1 });
+inventorySchema.index({ productName: 1, isActive: 1 });
+
+export default mongoose.model('Inventory', inventorySchema);
+>>>>>>> Stashed changes

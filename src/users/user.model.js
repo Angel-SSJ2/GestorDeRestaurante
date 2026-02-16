@@ -1,8 +1,13 @@
+<<<<<<< Updated upstream
 'use stirct'
+=======
+'use strict';
+>>>>>>> Stashed changes
 
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
+<<<<<<< Updated upstream
 
     name:{
         type: String,
@@ -87,3 +92,44 @@ userSchema.methods.toJSON = function() {
 export default mongoose.model('User', userSchema);
 
 
+=======
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+    maxLength: [100, 'El nombre no puede tener mas de 100 caracteres'],
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    required: true,
+    enum: {
+      values: ['ADMIN', 'CLIENT'],
+      message: 'Rol no valido',
+    },
+  },
+  photo: {
+    type: String,
+    default: 'users/default_user',
+  },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
+});
+
+userSchema.index({ isActive: 1 });
+userSchema.index({ email: 1 });
+userSchema.index({ email: 1, isActive: 1 });
+
+export default mongoose.model('User', userSchema);
+>>>>>>> Stashed changes
